@@ -21,10 +21,8 @@ public final class Constants {
     public static final int kControllerDriver = 0;
 
     // PWM
-    public static final int kFrontLeftDriveTalon     = 0;
-    public static final int kRearLeftDriveTalon      = 1;
-    public static final int kFrontRigthDriveTalon      = 2;
-    public static final int kRearRightDriveTalon      = 3;
+    public static final int kDriveSparkRight     = 0;
+    public static final int kDriveSparkLeft      = 9;
 
     public static final int kShooterTalon        = 1;
     public static final boolean kShooterInverted = false;

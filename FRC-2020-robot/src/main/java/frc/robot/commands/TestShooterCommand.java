@@ -7,56 +7,42 @@
 
 package frc.robot.commands;
 
-//import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.Joystick;
-//import edu.wpi.first.wpilibj.XboxController;
-//import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Shooter;
 
-public class DriveWithJoystick extends CommandBase {
-  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final DriveTrain m_drive;
-  private final Joystick m_joyStick ;
-  
+public class TestShooterCommand extends CommandBase {
+
+  // Subsystems
+  private final Shooter m_shooter;
+
   /**
-   * Creates a new DriveWithController.
+   * Creates a new TestShooterCommand.
    */
-  public DriveWithJoystick(DriveTrain drive, Joystick joystick) {
+  public TestShooterCommand(Shooter shooter) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_drive = drive;
-    m_joyStick = joystick;
-
-    addRequirements(m_drive);
+    m_shooter = shooter;
+    addRequirements(m_shooter);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    SmartDashboard.putNumber("Shooter Output", 0.0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // Get data from the controller
-    double move = m_joyStick.getY();
-    double rotate = m_joyStick.getZ();
-
-    // DriverStation.reportError("M "+String.valueOf(move), false);
-    // DriverStation.reportError("R "+String.valueOf(rotate), false);
-    
-    // Process the data
-    move = -move;
-
-    // Tell the drive subsystem
-    m_drive.arcadeDrive(move, rotate);
-    
+    double speed = SmartDashboard.getNumber("Shooter Output", 0.0);
+    m_shooter.shoot(speed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_drive.stop(); 
+    m_shooter.stop();
+    SmartDashboard.putNumber("Shooter Output", 0.0);
   }
 
   // Returns true when the command should end.

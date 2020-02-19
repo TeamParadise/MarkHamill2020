@@ -8,12 +8,15 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.Joystick;
-//import frc.robot.subsystems.FakeSubsystem;
-//import frc.robot.subsystems.Shooter;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.XboxController.Button;
+import frc.robot.commands.DriveWithController;
+import frc.robot.commands.TestShooterCommand;
+import frc.robot.subsystems.Drive;
+import frc.robot.subsystems.FakeSubsystem;
+import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.DriveTrain;
-
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -23,10 +26,11 @@ import frc.robot.subsystems.DriveTrain;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  //private final Shooter m_shooter = new Shooter();
-  //private final FakeSubsystem m_fake = new FakeSubsystem();
-  public DriveTrain m_drive;
-  public static Joystick m_Joystick;
+  private final Drive m_drive = new Drive();
+  private final Shooter m_shooter = new Shooter();
+  private final FakeSubsystem m_fake = new FakeSubsystem();
+
+  private final XboxController m_controller = new XboxController(Constants.kControllerDriver); 
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -34,25 +38,22 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
-    m_drive = new DriveTrain();
 
     // Set default commands
-    //m_drive.setDefaultCommand(new DriveWithController(m_drive, m_joystick));
-    //m_drive.m_RearLeftTalon.set(1);
+    m_drive.setDefaultCommand(new DriveWithController(m_drive, m_controller));
   }
 
   /**
    * Use this method to define your button->command mappings.  Buttons can be created by
    * instantiating a {@link GenericHID} or one of its subclasses ({@link
-   * edu.wpi.first.wpilibj.Joystick} or {@link Joystick}), and then passing it to a
+   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    m_Joystick = new Joystick(Constants.kControllerDriver);
-    
+
     // Configure out shooter buttons
-    // TestShooterCommand m_testShooterCmd = new TestShooterCommand(m_shooter);
-    /*
+    TestShooterCommand m_testShooterCmd = new TestShooterCommand(m_shooter);
+
     new JoystickButton(m_controller, Button.kBumperLeft.value).whenPressed(m_testShooterCmd);
     new JoystickButton(m_controller, Button.kBumperRight.value).cancelWhenPressed(m_testShooterCmd);
 
@@ -66,18 +67,9 @@ public class RobotContainer {
     new JoystickButton(m_controller, Button.kB.value)
         .whenPressed(() -> m_fake.setState("B Pressed"))
         .whenReleased(() -> m_fake.setState(""));
-    */
-    }
-
-  public static double getYSpeed()
-  {
-    if (Math.abs(m_Joystick.getRawAxis(0)) >= .2) 
-    {
-    //m_Joystick.putNumber("Yaxis", m_Joystick.getRawAxis(1));
-    return (m_Joystick.getRawAxis(0));
-    }
-    return 0.0;
   }
+
+
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
