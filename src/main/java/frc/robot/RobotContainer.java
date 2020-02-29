@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.Joystick;
 //import frc.robot.subsystems.FakeSubsystem;
 //import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.DriveTrain;
 
 
@@ -27,7 +28,7 @@ public class RobotContainer {
   //private final FakeSubsystem m_fake = new FakeSubsystem();
   public DriveTrain m_drive;
   public static Joystick m_Joystick;
-
+  public ColorSensor m_colorSensor;
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
@@ -35,7 +36,7 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
     m_drive = new DriveTrain();
-
+    m_colorSensor = new ColorSensor();
     // Set default commands
     //m_drive.setDefaultCommand(new DriveWithController(m_drive, m_joystick));
     //m_drive.m_RearLeftTalon.set(1);
@@ -51,6 +52,7 @@ public class RobotContainer {
     m_Joystick = new Joystick(Constants.kControllerDriver);
     
     // Configure out shooter buttons
+    
     // TestShooterCommand m_testShooterCmd = new TestShooterCommand(m_shooter);
     /*
     new JoystickButton(m_controller, Button.kBumperLeft.value).whenPressed(m_testShooterCmd);

@@ -7,6 +7,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.DriverStation;
 //import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
 //import edu.wpi.first.wpilibj.XboxController;
@@ -41,27 +42,23 @@ public class DriveWithJoystick extends CommandBase {
     // Get data from the controller
     double move = m_joyStick.getY();
     double rotate = m_joyStick.getZ();
-
-    // DriverStation.reportError("M "+String.valueOf(move), false);
+    DriverStation.reportError("LS:" + String.valueOf(m_drive.limitSwitch.get()), false);
+    DriverStation.reportError("M "+String.valueOf(move), false);
     // DriverStation.reportError("R "+String.valueOf(rotate), false);
     
     // Process the data
     move = -move;
 
     // Tell the drive subsystem
-    m_drive.arcadeDrive(move, rotate);
+   // m_drive.arcadeDrive(move, rotate);
     
   }
 
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {
-    m_drive.stop(); 
-  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     return false;
   }
+  
 }

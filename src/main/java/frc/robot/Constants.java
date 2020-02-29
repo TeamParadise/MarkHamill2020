@@ -26,9 +26,12 @@ public final class Constants {
     public static final int kFrontRigthDriveTalon      = 2;
     public static final int kRearRightDriveTalon      = 3;
 
-    public static final int kShooterTalon        = 1;
+    public static final int kShooterVictor        = 1;
+    public static final int kInvertedVictorShooter        = 2;
     public static final boolean kShooterInverted = false;
 
-
+	public static Object kShooterTalon;
+    //I2C
+    
 }
 
