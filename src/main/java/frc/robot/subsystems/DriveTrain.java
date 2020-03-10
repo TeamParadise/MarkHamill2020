@@ -30,6 +30,7 @@ public class DriveTrain extends SubsystemBase {
   
   public DigitalInput limitSwitch = new DigitalInput(0);
 
+  private int lastreport = RobotContainer.reportinterval;
 
   //#endregion
 
@@ -68,6 +69,7 @@ public class DriveTrain extends SubsystemBase {
 
    
     //DriverStation.reportWarning(Double.toString(tspeed) + " " + Double.toString(twist), false);
+    report();
   }
 
   /**
@@ -105,11 +107,16 @@ public class DriveTrain extends SubsystemBase {
   
 	public void report()
 	{
-		SmartDashboard.putNumber(getName() + " Right", m_RightDrive.get());
-		SmartDashboard.putNumber(getName() + " Left", m_LeftDrive.get());
+    if (lastreport >= RobotContainer.reportinterval)
+    {
+      SmartDashboard.putNumber(getName() + " Right", m_RightDrive.get());
+      SmartDashboard.putNumber(getName() + " Left", m_LeftDrive.get());
 
-		SmartDashboard.putNumber(getName() + " Position", getPosition());
-		// SmartDashboard.putNumber(getName() + " Velocity", getVelocity());
+      SmartDashboard.putNumber(getName() + " Position", getPosition());
+      // SmartDashboard.putNumber(getName() + " Velocity", getVelocity());
+      lastreport=0;
+    }
+    else lastreport++;
 	}
 
 public static void m_drive() {

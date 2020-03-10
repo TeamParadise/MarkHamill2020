@@ -98,7 +98,7 @@ public class ColorSensor extends SubsystemBase {
       colorcount++;
     }
 
-    DriverStation.reportError(sColor() + /*"," + sRGB() + ", " +*/ sIsClose() + "," + String.valueOf(colorcount), false);
+    DriverStation.reportError(sColor() + /*"," + sRGB() +*/ ", " + sIsClose() + "," + String.valueOf(colorcount), false);
 
 
     

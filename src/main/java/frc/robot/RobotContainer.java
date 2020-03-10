@@ -10,8 +10,10 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 //import frc.robot.subsystems.FakeSubsystem;
-//import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.RobotShooter;
 import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.DriveTrain;
 
@@ -24,11 +26,14 @@ import frc.robot.subsystems.DriveTrain;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  //private final Shooter m_shooter = new Shooter();
+  
   //private final FakeSubsystem m_fake = new FakeSubsystem();
   public DriveTrain m_drive;
   public static Joystick m_Joystick;
   public ColorSensor m_colorSensor;
+  private final Shooter m_shooter = new Shooter();
+  public static int reportinterval = 50;
+  
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
@@ -37,9 +42,12 @@ public class RobotContainer {
     configureButtonBindings();
     m_drive = new DriveTrain();
     m_colorSensor = new ColorSensor();
+    
+    
+
     // Set default commands
     //m_drive.setDefaultCommand(new DriveWithController(m_drive, m_joystick));
-    //m_drive.m_RearLeftTalon.set(1);
+    //m_drive.m_RearRightTalon.set(1);
   }
 
   /**
@@ -53,12 +61,14 @@ public class RobotContainer {
     
     // Configure out shooter buttons
     
-    // TestShooterCommand m_testShooterCmd = new TestShooterCommand(m_shooter);
+    RobotShooter m_RobotShooter = new RobotShooter(m_shooter);
+    new JoystickButton(m_Joystick, Constants.IntakeBall).whileHeld(m_RobotShooter);
+    new JoystickButton(m_Joystick), Constants.Outtake).whileheld(m_RobotShooter);
+    //new JoystickButton(m_Joystick, Constants.IntakeBall).whenReleased(m_RobotShooter.end(false));
+    //new JoystickButton(m_Joystick, ).whenPressed(m_RobotShooter);
+    //new JoystickButton(m_Joystick, ).cancelWhenPressed(m_RobotShooter);
+
     /*
-    new JoystickButton(m_controller, Button.kBumperLeft.value).whenPressed(m_testShooterCmd);
-    new JoystickButton(m_controller, Button.kBumperRight.value).cancelWhenPressed(m_testShooterCmd);
-
-
     // Set a random number when pressed, set to 0 when released
     new JoystickButton(m_controller, Button.kA.value)
         .whenPressed(() -> m_fake.setRandomNumber())

@@ -16,6 +16,7 @@ public class Shooter extends SubsystemBase {
 
   // Motors
   private static WPI_VictorSPX Shooter;
+  private static WPI_VictorSPX Shooter2;
 
   /**
    * Creates a new Shooter.
@@ -23,7 +24,7 @@ public class Shooter extends SubsystemBase {
   public Shooter() {
       Shooter = new WPI_VictorSPX(Constants.kShooterVictor);
       Shooter.setInverted(Constants.kShooterInverted);
-      
+      Shooter2 = new WPI_VictorSPX(Constants.kOutTake);
   }
 
   /**
@@ -32,6 +33,7 @@ public class Shooter extends SubsystemBase {
    */
   public void shoot(double percentOutput) {
     Shooter.set(percentOutput);
+    Shooter2.set(percentOutput);
   }
 
   /**
@@ -39,6 +41,7 @@ public class Shooter extends SubsystemBase {
    */
   public void stop() {
     Shooter.stopMotor();
+    Shooter2.stopMotor();
   }
 
 

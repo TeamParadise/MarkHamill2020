@@ -21,17 +21,21 @@ public final class Constants {
     public static final int kControllerDriver = 0;
 
     // PWM
-    public static final int kFrontLeftDriveTalon     = 0;
+    public static final int kFrontLeftDriveTalon     = 2;
     public static final int kRearLeftDriveTalon      = 1;
-    public static final int kFrontRigthDriveTalon      = 2;
-    public static final int kRearRightDriveTalon      = 3;
+    public static final int kFrontRigthDriveTalon      = 3;
+    public static final int kRearRightDriveTalon      = 0;
 
     public static final int kShooterVictor        = 1;
+    public static final int kOutTake = 3;
     public static final int kInvertedVictorShooter        = 2;
     public static final boolean kShooterInverted = false;
 
+    public static final int kClimber = 200;
 	public static Object kShooterTalon;
     //I2C
-    
-}
 
+    //Buttons
+    public static final int IntakeBall = 1;
+
+}
